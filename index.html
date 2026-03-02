@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grammar Study Guide – Blue Valley School</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0f1f3d;
+    --blue: #1a4a8a;
+    --accent: #3b82f6;
+    --gold: #f59e0b;
+    --green: #10b981;
+    --red: #ef4444;
+    --bg: #f0f4ff;
+    --card: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #e2e8f0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--navy);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 28px;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: #fff;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
+  .logo span { color: var(--gold); }
+  .progress-bar-wrap {
+    flex: 1;
+    max-width: 320px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 99px;
+    height: 10px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--gold));
+    border-radius: 99px;
+    transition: width 0.5s ease;
+    width: 0%;
+  }
+  .progress-label {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.7);
+    font-family: 'Syne', sans-serif;
+    white-space: nowrap;
+  }
+  .score-chip {
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 5px 14px;
+    border-radius: 99px;
+    white-space: nowrap;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 60%, #2563eb 100%);
+    padding: 60px 28px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 20% 50%, rgba(59,130,246,0.25) 0%, transparent 55%),
+                      radial-gradient(circle at 80% 20%, rgba(245,158,11,0.15) 0%, transparent 45%);
+  }
+  .hero-inner { position: relative; z-index: 1; max-width: 700px; margin: auto; }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .hero h1 em { color: var(--gold); font-style: normal; }
+  .hero p {
+    color: rgba(255,255,255,0.75);
+    font-size: 1rem;
+    margin-bottom: 28px;
+  }
+  .part-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+  .part-chip {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    font-size: 0.75rem;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 99px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .part-chip:hover, .part-chip.active {
+    background: var(--gold);
+    color: var(--navy);
+    border-color: var(--gold);
+  }
+
+  /* MAIN LAYOUT */
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+
+  /* SECTION */
+  .section { display: none; }
+  .section.visible { display: block; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .section-tag {
+    background: var(--navy);
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 1.5px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: -0.3px;
+  }
+
+  /* RULE BOX */
+  .rule-box {
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 12px 12px 0;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #1e3a5f;
+  }
+  .rule-box strong { font-weight: 600; display: block; margin-bottom: 6px; color: var(--blue); font-family: 'Syne', sans-serif; }
+
+  /* TASK CARD */
+  .task-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06), 0 0 0 1px var(--border);
+    transition: box-shadow 0.2s;
+  }
+  .task-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.1), 0 0 0 1px var(--border); }
+  .task-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--blue);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .task-num {
+    background: var(--accent);
+    color: #fff;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* QUESTIONS */
+  .question {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .question:last-child { border-bottom: none; padding-bottom: 0; }
+  .q-text {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    line-height: 1.5;
+    color: var(--text);
+  }
+  .q-num { color: var(--accent); font-weight: 600; margin-right: 4px; }
+
+  /* MULTIPLE CHOICE */
+  .options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .opt-btn {
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 7px 14px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.18s;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+  }
+  .opt-btn:hover:not(:disabled) {
+    border-color: var(--accent);
+    background: #eff6ff;
+    transform: translateY(-1px);
+  }
+  .opt-btn.correct { background: #dcfce7; border-color: var(--green); color: #166534; font-weight: 500; }
+  .opt-btn.wrong { background: #fee2e2; border-color: var(--red); color: #991b1b; }
+  .opt-btn.reveal { background: #dcfce7; border-color: var(--green); color: #166534; font-weight: 500; }
+  .opt-btn:disabled { cursor: default; }
+
+  /* INPUT */
+  .q-input-wrap { display: flex; gap: 8px; margin-top: 8px; align-items: center; flex-wrap: wrap; }
+  .q-input {
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 0.88rem;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    width: 200px;
+    transition: border-color 0.2s;
+    background: var(--bg);
+  }
+  .q-input:focus { border-color: var(--accent); background: #fff; }
+  .q-input.correct { border-color: var(--green); background: #dcfce7; color: #166534; }
+  .q-input.wrong { border-color: var(--red); background: #fee2e2; color: #991b1b; }
+  .check-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s;
+    white-space: nowrap;
+  }
+  .check-btn:hover { background: var(--blue); transform: translateY(-1px); }
+  .check-btn:disabled { background: var(--border); color: var(--muted); cursor: default; transform: none; }
+
+  .feedback {
+    font-size: 0.82rem;
+    margin-top: 6px;
+    font-weight: 500;
+    min-height: 18px;
+    transition: all 0.2s;
+  }
+  .feedback.ok { color: var(--green); }
+  .feedback.no { color: var(--red); }
+
+  /* INLINE BLANK */
+  .inline-blank {
+    border: none;
+    border-bottom: 2px solid var(--accent);
+    background: transparent;
+    font-size: 0.9rem;
+    font-family: 'DM Sans', sans-serif;
+    width: 110px;
+    padding: 2px 4px;
+    outline: none;
+    color: var(--text);
+    transition: border-color 0.2s;
+  }
+  .inline-blank:focus { border-bottom-color: var(--blue); }
+  .inline-blank.correct { border-color: var(--green); color: #166534; }
+  .inline-blank.wrong { border-color: var(--red); color: #991b1b; }
+
+  /* TASK FOOTER */
+  .task-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .task-score { font-size: 0.82rem; color: var(--muted); font-family: 'Syne', sans-serif; }
+  .task-score strong { color: var(--navy); }
+  .check-all-btn {
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-size: 0.85rem;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .check-all-btn:hover { background: var(--blue); }
+
+  /* NAV BUTTONS */
+  .section-nav {
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    margin-top: 32px;
+  }
+  .nav-btn {
+    padding: 12px 28px;
+    border-radius: 10px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    letter-spacing: 0.3px;
+  }
+  .nav-btn.prev { background: var(--border); color: var(--text); }
+  .nav-btn.next { background: var(--accent); color: #fff; }
+  .nav-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+  .nav-btn:disabled { opacity: 0.4; cursor: default; transform: none; box-shadow: none; }
+
+  /* RESULTS */
+  .results-card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 40px 32px;
+    text-align: center;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.1);
+  }
+  .results-emoji { font-size: 4rem; margin-bottom: 16px; }
+  .results-card h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .results-card p { color: var(--muted); margin-bottom: 24px; }
+  .big-score {
+    font-family: 'Syne', sans-serif;
+    font-size: 4rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .part-scores {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin: 28px 0;
+    text-align: left;
+  }
+  .part-score-item {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+  }
+  .part-score-item .label { font-size: 0.75rem; color: var(--muted); font-family: 'Syne', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .part-score-item .val { font-size: 1.3rem; font-weight: 700; color: var(--navy); font-family: 'Syne', sans-serif; }
+  .restart-btn {
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 14px 32px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .restart-btn:hover { background: var(--blue); transform: translateY(-2px); }
+
+  @media (max-width: 500px) {
+    .header-inner { padding: 10px 14px; gap: 10px; }
+    .progress-bar-wrap { max-width: 160px; }
+    .hero { padding: 36px 14px 32px; }
+    .container { padding: 20px 12px 60px; }
+    .task-card { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">Blue Valley <span>Grammar</span></div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progressBar"></div>
+    </div>
+    <div class="progress-label" id="progressLabel">0 / 5 partes</div>
+    <div class="score-chip" id="scoreChip">★ 0 pts</div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <h1>Grammar <em>Study Guide</em></h1>
+    <p>Units 1–4 · 8th Grade · Blue Valley School</p>
+    <div class="part-chips" id="partChips">
+      <button class="part-chip active" onclick="goTo(0)">1 · Verb Tenses</button>
+      <button class="part-chip" onclick="goTo(1)">2 · Past Tenses</button>
+      <button class="part-chip" onclick="goTo(2)">3 · Nouns</button>
+      <button class="part-chip" onclick="goTo(3)">4 · Pronouns & Prep.</button>
+      <button class="part-chip" onclick="goTo(4)">5 · Articles</button>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ==================== PART 1 ==================== -->
+<div class="section visible" id="section-0">
+  <div class="section-header">
+    <div class="section-tag">Part 1</div>
+    <div class="section-title">Verb Tenses — Present</div>
+  </div>
+
+  <!-- Task 1 -->
+  <div class="task-card">
+    <div class="task-title"><div class="task-num">1</div> Present Simple — Choose the correct option</div>
+    <div class="rule-box">
+      <strong>📌 Rule</strong>
+      I/You/We/They + base verb &nbsp;|&nbsp; He/She/It + verb <strong>-s/-es/-ies</strong><br>
+      Negative: <strong>don't</strong> (I/You/We/They) &nbsp;|&nbsp; <strong>doesn't</strong> (He/She/It) + base verb
+    </div>
+    <div id="t1-questions">
+      <!-- MC questions rendered by JS -->
+    </div>
+    <div class="task-footer">
+      <div class="task-score" id="t1-score">Score: <strong>0/5</strong></div>
+      <button class="check-all-btn" onclick="revealTask('t1')">Show Answers</button>
+    </div>
+  </div>
+
+  <!-- Task 2 -->
+  <div class="task-card">
+    <div class="task-title"><div class="task-num">2</div> Present Progressive — Complete the sentences</div>
+    <div class="rule-box">
+      <strong>📌 Rule</strong>
+      Subject + <strong>am/is/are</strong> + verb<strong>-ing</strong><br>
+      Non-action verbs (want, love, know, own, need, believe) → use Simple Present only!
+    </div>
+    <div id="t2-questions"></div>
+    <div class="task-footer">
+      <div class="task-score" id="t2-score">Score: <strong>0/5</strong></div>
+      <button class="check-all-btn" onclick="revealTask('t2')">Show Answers</button>
+    </div>
+  </div>
+
+  <!-- Task 3 -->
+  <div class="task-card">
+    <div class="task-title"><div class="task-num">3</div> Simple Present vs. Progressive — Circle the correct option</div>
+    <div id="t3-questions"></div>
+    <div class="task-footer">
+      <div class="task-score" id="t3-score">Score: <strong>0/5</strong></div>
+      <button class="check-all-btn" onclick="revealTask('t3')">Show Answers</button>
+    </div>
+  </div>
+
+  <div class="section-nav">
+    <button class="nav-btn prev" disabled>← Back</button>
+    <button class="nav-btn next" onclick="goTo(1)">Past Tenses →</button>
+  </div>
+</div>
+
+<!-- ==================== PART 2 ==================== -->
+<div class="section" id="section-1">
+  <div class="section-header">
+    <div class="section-tag">Part 2</div>
+    <div class="section-title">Past Tenses</div>
+  </div>
+
+  <!-- Task 4 -->
+  <div class="task-card">
+    <div class="task-title"><div class="task-num">4</div> Simple Past — Complete with the correct form</div>
+    <div class="rule-box">
+      <strong>📌 Rule</strong>
+      Regular: add <strong>-ed / -d</strong> &nbsp;|&nbsp; Irregular: go→<strong>went</strong>, see→<strong>saw</strong>, eat→<strong>ate</strong>, give→<strong>gave</strong>, make→<strong>made</strong><br>
+      Negative: <strong>didn't</strong> + base form &nbsp;|&nbsp; <em>Be</em>: <strong>was / were</strong> (never "didn't was")
+    </div>
+    <div id="t4-questions"></div>
+    <div class="task-footer">
+      <div class="task-score" id="t4-score">Score: <strong>0/5</strong></div>
+      <button class="check-all-btn" onclick="revealTask('t4')">Show Answers</button>
+    </div>
+  </div>
+
+  <!-- Task 5 -->
+  <div class="task-card">
+    <div class="task-title"><div class="task-num">5</div> Past Progressive — Choose the correct option</div>
+    <div class="rule-box">
+      <strong>📌 Rule</strong>
+      Subject + <strong>was/were</strong> + verb<strong>-ing</strong> &nbsp;|&nbsp; Non-action verbs → Simple Past only
+    </div>
+    <div id="t5-questions"></div>
+    <div class="task-footer">
+      <div class="task-score" id="t5-score">Score: <strong>0/5</strong></div>
+      <button class="check-all-btn" onclick="revealTask('t5')">Show Answers</button>
+    </div>
+  </div>
+
+  <!-- Task 6 -->
+  <div class="task-card">
+    <div class="task-title"><div class="task-num">6</div> Used To / Would — Choose the correct option</div>
+    <div class="rule-box">
+      <strong>📌 Rule</strong>
+      <strong>Used to</strong> = past habit OR state no longer true &nbsp;|&nbsp; <strong>Would</strong> = repeated past action (NOT states)<br>
+      ✓ There <em>used to be</em> a library &nbsp; ✗ There <em>would be</em> a library
+    </div>
+    <div id="t6-questions"></div>
+    <div class="task-footer">
+      <div class="task-score" id="t6-score">Score: <strong>0/5</strong></div>
+      <button class="check-all-btn" onclick="revealTask('t6')">Show Answers</button>
+    </div>
+  </div>
+
+  <div class="section-nav">
+    <button class="nav-btn prev" onclick="goTo(0)">← Present</button>
+    <button class="nav-btn next" onclick="goTo(2)">Nouns →</button>
+  </div>
+</div>
+
+<!-- ==================== PART 3 ==================== -->
+<div class="section" id="section-2">
+  <div class="section-header">
+    <div class="section-tag">Part 3</div>
+    <div class="section-title">Nouns</div>
+  </div>
+
+  <!-- Task 7 -->
+  <div class="task-card">
+    <div class="task-title"><div class="task-num">7</div> Plural Nouns — Type the plural form</div>
+    <div class="rule-box">
+      <strong>📌 Rules</strong>
+      Most nouns: +s &nbsp;|&nbsp; -s/-sh/-ch/-x: +es &nbsp;|&nbsp; consonant+y → -ies &nbsp;|&nbsp; -f/-fe → -ves<br>
+      Irregular: man→<strong>men</strong>, tooth→<strong>teeth</strong>, child→<strong>children</strong>, woman→<strong>women</strong>, foot→<strong>feet</strong>
+    </div>
+    <div id="t7-questions"></div>
+    <div class="task-footer">
+      <div class="task-score" id="t7-score">Score: <strong>0/6</strong></div>
+      <button class="check-all-btn" onclick="revealTask('t7')">Show Answers</button>
+    </div>
+  </div>
+
+  <!-- Task 8 -->
+  <div class="task-card">
+    <div class="task-title"><div class="task-num">8</div> Count & Non-Count Nouns — Choose C or NC</div>
+    <div class="rule-box">
+      <strong>📌 Rule</strong>
+      <strong>Count nouns</strong> can be counted and have a plural form (a doctor, two doctors)<br>
+      <strong>Non-count nouns</strong> cannot be counted and have NO plural (furniture, homework, money, information)
+    </div>
+    <div id="t8-questions"></div>
+    <div class="task-footer">
+      <div class="task-score" id="t8-score">Score: <strong>0/6</strong></div>
+      <button class="check-all-btn" onclick="revealTask('t8')">Show Answers</button>
+    </div>
+  </div>
+
+  <!-- Task 9 -->
+  <div class="task-card">
+    <div class="task-title"><div class="task-num">9</div> Quantity & Measurement Words — Choose the correct word</div>
+    <div class="rule-box">
+      <strong>📌 Rule</strong>
+      Count: <strong>many / a few / some / any</strong> &nbsp;|&nbsp; Non-count: <strong>much / a little / some / any</strong><br>
+      Measurement: a <strong>loaf</strong> of bread · a <strong>tube</strong> of toothpaste · a <strong>bar</strong> of soap · a <strong>slice</strong> of pizza · a <strong>stick</strong> of butter
+    </div>
+    <div id="t9-questions"></div>
+    <div class="task-footer">
+      <div class="task-score" id="t9-score">Score: <strong>0/6</strong></div>
+      <button class="check-all-btn" onclick="revealTask('t9')">Show Answers</button>
+    </div>
+  </div>
+
+  <div class="section-nav">
+    <button class="nav-btn prev" onclick="goTo(1)">← Past</button>
+    <button class="nav-btn next" onclick="goTo(3)">Pronouns →</button>
+  </div>
+</div>
+
+<!-- ==================== PART 4 ==================== -->
+<div class="section" id="section-3">
+  <div class="section-header">
+    <div class="section-tag">Part 4</div>
+    <div class="section-title">Pronouns, Possessives & Prepositions</div>
+  </div>
+
+  <!-- Task 10 -->
+  <div class="task-card">
+    <div class="task-title"><div class="task-num">10</div> Pronouns — Choose the correct option</div>
+    <div class="rule-box">
+      <strong>📌 Reference</strong>
+      Subject: <strong>I / You / He / She / It / We / They</strong><br>
+      Object: <strong>me / you / him / her / it / us / them</strong><br>
+      Poss. Adj.: <strong>my / your / his / her / its / our / their</strong><br>
+      Poss. Pronoun: <strong>mine / yours / his / hers / ours / theirs</strong><br>
+      Reflexive: <strong>myself / yourself / himself / herself / itself / ourselves / themselves</strong>
+    </div>
+    <div id="t10-questions"></div>
+    <div class="task-footer">
+      <div class="task-score" id="t10-score">Score: <strong>0/6</strong></div>
+      <button class="check-all-btn" onclick="revealTask('t10')">Show Answers</button>
+    </div>
+  </div>
+
+  <!-- Task 11 -->
+  <div class="task-card">
+    <div class="task-title"><div class="task-num">11</div> Another / Other / The Other — Choose the correct option</div>
+    <div class="rule-box">
+      <strong>📌 Rule</strong>
+      <strong>Another</strong> + singular = one more (unspecific) &nbsp;|&nbsp; <strong>The other</strong> + singular = second of two<br>
+      <strong>Other</strong> + plural = some of the remaining &nbsp;|&nbsp; <strong>The other</strong> + plural = the rest of a group
+    </div>
+    <div id="t11-questions"></div>
+    <div class="task-footer">
+      <div class="task-score" id="t11-score">Score: <strong>0/5</strong></div>
+      <button class="check-all-btn" onclick="revealTask('t11')">Show Answers</button>
+    </div>
+  </div>
+
+  <!-- Task 12 -->
+  <div class="task-card">
+    <div class="task-title"><div class="task-num">12</div> Prepositions of Time — Choose IN, ON, or AT</div>
+    <div class="rule-box">
+      <strong>📌 Rule</strong>
+      <strong>AT</strong>: clock times, noon, night, midnight &nbsp;|&nbsp; <strong>IN</strong>: months, seasons, years, morning/afternoon/evening<br>
+      <strong>ON</strong>: dates, days of the week, specific days (Christmas Day)
+    </div>
+    <div id="t12-questions"></div>
+    <div class="task-footer">
+      <div class="task-score" id="t12-score">Score: <strong>0/6</strong></div>
+      <button class="check-all-btn" onclick="revealTask('t12')">Show Answers</button>
+    </div>
+  </div>
+
+  <div class="section-nav">
+    <button class="nav-btn prev" onclick="goTo(2)">← Nouns</button>
+    <button class="nav-btn next" onclick="goTo(4)">Articles →</button>
+  </div>
+</div>
+
+<!-- ==================== PART 5 ==================== -->
+<div class="section" id="section-4">
+  <div class="section-header">
+    <div class="section-tag">Part 5</div>
+    <div class="section-title">Articles & Generalizations</div>
+  </div>
+
+  <!-- Task 13 -->
+  <div class="task-card">
+    <div class="task-title"><div class="task-num">13</div> Articles — Choose A, AN, THE, or Ø (no article)</div>
+    <div class="rule-box">
+      <strong>📌 Rule</strong>
+      <strong>A/AN</strong> = not specific, singular count noun &nbsp;|&nbsp; <strong>A</strong> before consonant sound · <strong>AN</strong> before vowel sound<br>
+      <strong>THE</strong> = specific (we know which one, there's only one, or mentioned before)<br>
+      <strong>Ø</strong> = no article with plural/non-count nouns for generalizations
+    </div>
+    <div id="t13-questions"></div>
+    <div class="task-footer">
+      <div class="task-score" id="t13-score">Score: <strong>0/6</strong></div>
+      <button class="check-all-btn" onclick="revealTask('t13')">Show Answers</button>
+    </div>
+  </div>
+
+  <!-- Task 14 -->
+  <div class="task-card">
+    <div class="task-title"><div class="task-num">14</div> Generalizations vs. Specific — Write G or S</div>
+    <div class="rule-box">
+      <strong>📌 Rule</strong>
+      <strong>Generalization</strong>: statement about all members of a group → "Bikes are fast." / "A bike is fast."<br>
+      <strong>Specific</strong>: refers to a particular known noun → "The bike in the garage is fast."
+    </div>
+    <div id="t14-questions"></div>
+    <div class="task-footer">
+      <div class="task-score" id="t14-score">Score: <strong>0/4</strong></div>
+      <button class="check-all-btn" onclick="revealTask('t14')">Show Answers</button>
+    </div>
+  </div>
+
+  <div class="section-nav">
+    <button class="nav-btn prev" onclick="goTo(3)">← Pronouns</button>
+    <button class="nav-btn next" onclick="showResults()" style="background:#10b981">See Results ★</button>
+  </div>
+</div>
+
+<!-- ==================== RESULTS ==================== -->
+<div class="section" id="section-5">
+  <div class="results-card" id="resultsCard">
+    <div class="results-emoji" id="resultsEmoji">🎉</div>
+    <h2 id="resultsTitle">¡Buen trabajo!</h2>
+    <p id="resultsMsg">Aquí están tus resultados finales</p>
+    <div class="big-score" id="bigScore">0/67</div>
+    <div class="part-scores" id="partScores"></div>
+    <button class="restart-btn" onclick="restartAll()">🔄 Intentar de nuevo</button>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const tasks = {
+  t1: {
+    type: 'mc',
+    label: 'Task 1',
+    questions: [
+      { text: 'She __________ spicy food.', options: ["doesn't like","doesn't likes","don't like"], answer: "doesn't like" },
+      { text: 'The wedding __________ on the first day.', options: ["doesn't ends","don't end","doesn't end"], answer: "doesn't end" },
+      { text: 'A groom __________ a new home for his bride.', options: ["provide","provides","is providing"], answer: "provides" },
+      { text: 'We __________ breakfast on Sundays.', options: ["aren't eating","don't eat","doesn't eat"], answer: "don't eat" },
+      { text: 'Rosa __________ math.', options: ["teach","is teaching","teaches"], answer: "teaches" },
+    ]
+  },
+  t2: {
+    type: 'fill',
+    label: 'Task 2',
+    questions: [
+      { text: 'Right now, I _____ (study) for my English exam.', answer: 'am studying', hint: 'am studying' },
+      { text: 'Listen! The teacher _____ (talk) to the class.', answer: 'is talking', hint: 'is talking' },
+      { text: 'He _____ (wash) the dishes right now.', answer: 'is washing', hint: 'is washing' },
+      { text: 'She _____ (not/celebrate) the holiday with her family.', answer: "isn't celebrating", hint: "isn't celebrating" },
+      { text: 'That soup _____ great. [non-action verb → Simple Present]', answer: 'smells', hint: 'smells' },
+    ]
+  },
+  t3: {
+    type: 'mc',
+    label: 'Task 3',
+    questions: [
+      { text: 'Every November, people ___ a special holiday.', options: ['celebrate','are celebrating'], answer: 'celebrate' },
+      { text: 'Right now I ___ a cake for my mom.', options: ['make','am making'], answer: 'am making' },
+      { text: 'My grandmother usually ___ the family celebrations.', options: ['organizes','is organizing'], answer: 'organizes' },
+      { text: 'They ___ two apartments and a house.', options: ['own','are owning'], answer: 'own' },
+      { text: 'Look! Everyone ___ right now.', options: ['dances','is dancing'], answer: 'is dancing' },
+    ]
+  },
+  t4: {
+    type: 'fill',
+    label: 'Task 4',
+    questions: [
+      { text: 'For years, lions _____ (kill) many cows in Kenya.', answer: 'killed', hint: 'killed' },
+      { text: 'The herders _____ (send) warriors to hunt the lions.', answer: 'sent', hint: 'sent' },
+      { text: 'I _____ (not/go) out because it was raining.', answer: "didn't go", hint: "didn't go" },
+      { text: 'The organization _____ (give) every Guardian a cell phone.', answer: 'gave', hint: 'gave' },
+      { text: 'He _____ (not/be) happy about the program.', answer: "wasn't", hint: "wasn't" },
+    ]
+  },
+  t5: {
+    type: 'mc',
+    label: 'Task 5',
+    questions: [
+      { text: 'At 6 p.m. many people ___ to Angelica\'s show.', options: ['listened','were listening','was listening'], answer: 'were listening' },
+      { text: 'Tom and Karen ___ in Guatemala last year.', options: ['lived','were living','was living'], answer: 'were living' },
+      { text: 'I ___ an accident last night. [non-action verb]', options: ['was seeing','saw'], answer: 'saw' },
+      { text: 'The radio ___ loud music last night.', options: ['played','was playing','is playing'], answer: 'was playing' },
+      { text: 'Steve ___ in the library, but he ___ a magazine instead.', options: ['was sitting / was reading','sat / read','was sitting / read'], answer: 'was sitting / was reading' },
+    ]
+  },
+  t6: {
+    type: 'mc',
+    label: 'Task 6',
+    questions: [
+      { text: 'When I was a child, my father ___ me to the zoo every month.', options: ['would take','used to took','took'], answer: 'would take' },
+      { text: 'There ___ a supermarket near my home until last year.', options: ['would be','used to be','was'], answer: 'used to be' },
+      { text: 'In high school, my brother ___ his homework until midnight.', options: ["wouldn't start","didn't used to start","used to not start"], answer: "wouldn't start" },
+      { text: 'Jim ___ math when he was in school.', options: ["didn't use to like","wouldn't like","used to didn't like"], answer: "didn't use to like" },
+      { text: 'When Kyle was on the team, he ___ five miles every morning.', options: ['would run','used to ran','ran'], answer: 'would run' },
+    ]
+  },
+  t7: {
+    type: 'fill',
+    label: 'Task 7',
+    questions: [
+      { text: 'child → ', answer: 'children', hint: 'children' },
+      { text: 'tooth → ', answer: 'teeth', hint: 'teeth' },
+      { text: 'city → ', answer: 'cities', hint: 'cities' },
+      { text: 'leaf → ', answer: 'leaves', hint: 'leaves' },
+      { text: 'woman → ', answer: 'women', hint: 'women' },
+      { text: 'belief → ', answer: 'beliefs', hint: 'beliefs' },
+    ]
+  },
+  t8: {
+    type: 'mc',
+    label: 'Task 8',
+    questions: [
+      { text: 'furniture', options: ['C (Count)','NC (Non-Count)'], answer: 'NC (Non-Count)' },
+      { text: 'doctor', options: ['C (Count)','NC (Non-Count)'], answer: 'C (Count)' },
+      { text: 'homework', options: ['C (Count)','NC (Non-Count)'], answer: 'NC (Non-Count)' },
+      { text: 'apple', options: ['C (Count)','NC (Non-Count)'], answer: 'C (Count)' },
+      { text: 'information', options: ['C (Count)','NC (Non-Count)'], answer: 'NC (Non-Count)' },
+      { text: 'money', options: ['C (Count)','NC (Non-Count)'], answer: 'NC (Non-Count)' },
+    ]
+  },
+  t9: {
+    type: 'mc',
+    label: 'Task 9',
+    questions: [
+      { text: 'How _____ water do you drink every day?', options: ['many','much','a few'], answer: 'much' },
+      { text: 'There are three _____ of bread on the table.', options: ['pints','loaves','slices'], answer: 'loaves' },
+      { text: 'I need to buy a new _____ of toothpaste.', options: ['bar','tube','stick'], answer: 'tube' },
+      { text: 'Do you have _____ homework tonight?', options: ['many','any','a few'], answer: 'any' },
+      { text: 'I need _____ cup of coffee before class.', options: ['other','another','the other'], answer: 'another' },
+      { text: 'This cake uses six _____ of butter.', options: ['bars','sticks','pieces'], answer: 'sticks' },
+    ]
+  },
+  t10: {
+    type: 'mc',
+    label: 'Task 10',
+    questions: [
+      { text: 'This is Anna. _____ is my best friend.', options: ['She','Her','Hers'], answer: 'She' },
+      { text: 'Peter loves cars. _____ favorite car is red.', options: ['He','His','Him'], answer: 'His' },
+      { text: 'The children have new backpacks. _____ backpacks are blue.', options: ['They','Them','Their'], answer: 'Their' },
+      { text: 'My parents live in Canada. I call _____ every weekend.', options: ['they','them','their'], answer: 'them' },
+      { text: 'My brother cut _____ when he was working on his car. (reflexive)', options: ['him','himself','his'], answer: 'himself' },
+      { text: 'A: Is this your umbrella? B: No, it\'s not mine. (mine = ___)', options: ['possessive adjective','possessive pronoun','reflexive pronoun'], answer: 'possessive pronoun' },
+    ]
+  },
+  t11: {
+    type: 'mc',
+    label: 'Task 11',
+    questions: [
+      { text: 'I need to take _____ pill after lunch. (one more, unspecific)', options: ['another','the other','other'], answer: 'another' },
+      { text: 'Some people exercise every day. _____ people never exercise.', options: ['Another','Other','The other'], answer: 'Other' },
+      { text: 'I have two exams. One is in the morning. _____ one is in the afternoon.', options: ['Another','Other','The other'], answer: 'The other' },
+      { text: 'Eight nurses work here. Six are experienced. _____ two are new.', options: ['Another','Other','The other'], answer: 'The other' },
+      { text: 'This glass is dirty. Could I have _____ one, please?', options: ['another','the other','other'], answer: 'another' },
+    ]
+  },
+  t12: {
+    type: 'mc',
+    label: 'Task 12',
+    questions: [
+      { text: 'My birthday is _____ March.', options: ['in','on','at'], answer: 'in' },
+      { text: 'We have English class _____ Mondays.', options: ['in','on','at'], answer: 'on' },
+      { text: 'I usually get up _____ 7:00 a.m.', options: ['in','on','at'], answer: 'at' },
+      { text: 'They go skiing _____ winter.', options: ['in','on','at'], answer: 'in' },
+      { text: 'The concert is _____ Saturday night.', options: ['in','on','at'], answer: 'on' },
+      { text: 'My friends visited me _____ Christmas Day.', options: ['in','on','at'], answer: 'on' },
+    ]
+  },
+  t13: {
+    type: 'mc',
+    label: 'Task 13',
+    questions: [
+      { text: 'Andrew Skurka had problems with _____ snow during his trip.', options: ['the','a','Ø (nothing)'], answer: 'the' },
+      { text: 'Skurka took _____ raft with him.', options: ['a','an','the'], answer: 'a' },
+      { text: '_____ route of Skurka\'s expedition went through 8 national parks.', options: ['A','The','Ø (nothing)'], answer: 'The' },
+      { text: 'I saw _____ elephant at the zoo.', options: ['a','an','the'], answer: 'an' },
+      { text: 'He is _____ honest man.', options: ['a','an','the'], answer: 'an' },
+      { text: 'She lives in _____ United Kingdom.', options: ['a','the','Ø (nothing)'], answer: 'the' },
+    ]
+  },
+  t14: {
+    type: 'mc',
+    label: 'Task 14',
+    questions: [
+      { text: 'Journeys are often difficult and dangerous.', options: ['G (Generalization)','S (Specific)'], answer: 'G (Generalization)' },
+      { text: 'Train journeys are often very slow.', options: ['G (Generalization)','S (Specific)'], answer: 'G (Generalization)' },
+      { text: 'The journey took about six months.', options: ['G (Generalization)','S (Specific)'], answer: 'S (Specific)' },
+      { text: 'The photos in this magazine are amazing!', options: ['G (Generalization)','S (Specific)'], answer: 'S (Specific)' },
+    ]
+  },
+};
+
+// ============================================================
+// STATE
+// ============================================================
+let scores = {};
+let answered = {};
+let totalPoints = 0;
+let maxPoints = 0;
+
+function totalQ(tid) { return tasks[tid].questions.length; }
+
+function calcMax() {
+  return Object.keys(tasks).reduce((s, tid) => s + totalQ(tid), 0);
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+function renderAll() {
+  Object.keys(tasks).forEach(tid => {
+    const task = tasks[tid];
+    if (task.type === 'mc') renderMC(tid);
+    else renderFill(tid);
+    scores[tid] = 0;
+    answered[tid] = {};
+  });
+  maxPoints = calcMax();
+}
+
+function renderMC(tid) {
+  const task = tasks[tid];
+  const container = document.getElementById(tid + '-questions');
+  if (!container) return;
+  container.innerHTML = '';
+  task.questions.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'question';
+    div.id = `${tid}-q${i}`;
+    const optHtml = q.options.map(opt =>
+      `<button class="opt-btn" onclick="checkMC('${tid}',${i},'${opt.replace(/'/g,"\\'")}',this)">${opt}</button>`
+    ).join('');
+    div.innerHTML = `
+      <div class="q-text"><span class="q-num">${i+1}.</span>${q.text}</div>
+      <div class="options">${optHtml}</div>
+      <div class="feedback" id="${tid}-fb${i}"></div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function renderFill(tid) {
+  const task = tasks[tid];
+  const container = document.getElementById(tid + '-questions');
+  if (!container) return;
+  container.innerHTML = '';
+  task.questions.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'question';
+    div.id = `${tid}-q${i}`;
+    div.innerHTML = `
+      <div class="q-text"><span class="q-num">${i+1}.</span>${q.text}</div>
+      <div class="q-input-wrap">
+        <input class="q-input" id="${tid}-inp${i}" type="text" placeholder="Type your answer…" autocomplete="off">
+        <button class="check-btn" onclick="checkFill('${tid}',${i})">Check</button>
+      </div>
+      <div class="feedback" id="${tid}-fb${i}"></div>
+    `;
+    container.appendChild(div);
+    const inp = document.getElementById(`${tid}-inp${i}`);
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') checkFill(tid, i); });
+  });
+}
+
+// ============================================================
+// CHECK
+// ============================================================
+function normalize(s) {
+  return s.trim().toLowerCase().replace(/['']/g, "'").replace(/\s+/g,' ');
+}
+
+function checkMC(tid, i, choice, btn) {
+  if (answered[tid][i]) return;
+  answered[tid][i] = true;
+  const q = tasks[tid].questions[i];
+  const correct = normalize(choice) === normalize(q.answer);
+  const btns = btn.closest('.options').querySelectorAll('.opt-btn');
+  btns.forEach(b => {
+    b.disabled = true;
+    if (normalize(b.textContent) === normalize(q.answer)) b.classList.add('reveal');
+  });
+  btn.classList.remove('reveal');
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  const fb = document.getElementById(`${tid}-fb${i}`);
+  if (correct) {
+    fb.textContent = '✓ Correct!';
+    fb.className = 'feedback ok';
+    scores[tid]++;
+  } else {
+    fb.textContent = `✗ Answer: ${q.answer}`;
+    fb.className = 'feedback no';
+  }
+  updateTaskScore(tid);
+  updateGlobalScore();
+}
+
+function checkFill(tid, i) {
+  const inp = document.getElementById(`${tid}-inp${i}`);
+  const btn = inp.nextElementSibling;
+  if (inp.disabled) return;
+  const val = inp.value;
+  if (!val.trim()) return;
+  const q = tasks[tid].questions[i];
+  const correct = normalize(val) === normalize(q.answer);
+  inp.disabled = true;
+  btn.disabled = true;
+  const fb = document.getElementById(`${tid}-fb${i}`);
+  if (correct) {
+    inp.classList.add('correct');
+    fb.textContent = '✓ Correct!';
+    fb.className = 'feedback ok';
+    scores[tid]++;
+  } else {
+    inp.classList.add('wrong');
+    fb.textContent = `✗ Answer: ${q.answer}`;
+    fb.className = 'feedback no';
+  }
+  answered[tid][i] = true;
+  updateTaskScore(tid);
+  updateGlobalScore();
+}
+
+function revealTask(tid) {
+  const task = tasks[tid];
+  task.questions.forEach((q, i) => {
+    if (answered[tid][i]) return;
+    answered[tid][i] = 'revealed';
+    if (task.type === 'mc') {
+      const container = document.getElementById(`${tid}-q${i}`);
+      const btns = container.querySelectorAll('.opt-btn');
+      btns.forEach(b => {
+        b.disabled = true;
+        if (normalize(b.textContent) === normalize(q.answer)) b.classList.add('reveal');
+      });
+      const fb = document.getElementById(`${tid}-fb${i}`);
+      fb.textContent = `Answer: ${q.answer}`;
+      fb.className = 'feedback no';
+    } else {
+      const inp = document.getElementById(`${tid}-inp${i}`);
+      const btn = inp.nextElementSibling;
+      inp.value = q.answer;
+      inp.classList.add('wrong');
+      inp.disabled = true;
+      btn.disabled = true;
+      const fb = document.getElementById(`${tid}-fb${i}`);
+      fb.textContent = `Answer: ${q.answer}`;
+      fb.className = 'feedback no';
+    }
+  });
+  updateTaskScore(tid);
+  updateGlobalScore();
+}
+
+function updateTaskScore(tid) {
+  const max = totalQ(tid);
+  const el = document.getElementById(`${tid}-score`);
+  if (el) el.innerHTML = `Score: <strong>${scores[tid]}/${max}</strong>`;
+}
+
+function updateGlobalScore() {
+  totalPoints = Object.values(scores).reduce((a, b) => a + b, 0);
+  document.getElementById('scoreChip').textContent = `★ ${totalPoints} pts`;
+  const pct = maxPoints > 0 ? (totalPoints / maxPoints) * 100 : 0;
+  document.getElementById('progressBar').style.width = pct + '%';
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+let currentSection = 0;
+
+function goTo(idx) {
+  document.getElementById(`section-${currentSection}`).classList.remove('visible');
+  document.getElementById(`section-${idx}`).classList.add('visible');
+  currentSection = idx;
+  // update chips
+  document.querySelectorAll('.part-chip').forEach((c, i) => {
+    c.classList.toggle('active', i === idx);
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // update progress label
+  const labels = ['Verb Tenses','Past Tenses','Nouns','Pronouns & Prep.','Articles','Results'];
+  const done = idx;
+  document.getElementById('progressLabel').textContent = `Part ${Math.min(idx+1,5)} / 5`;
+}
+
+function showResults() {
+  document.getElementById(`section-${currentSection}`).classList.remove('visible');
+  document.getElementById('section-5').classList.add('visible');
+  currentSection = 5;
+  document.getElementById('progressBar').style.width = '100%';
+  document.getElementById('progressLabel').textContent = 'Complete!';
+
+  const total = Object.values(scores).reduce((a,b)=>a+b,0);
+  const max = calcMax();
+  const pct = Math.round(total/max*100);
+
+  let emoji = '😅', title = '¡Sigue practicando!', msg = 'Revisa las secciones con errores.';
+  if (pct >= 90) { emoji = '🏆'; title = '¡Excelente!'; msg = '¡Dominas la gramática! ¡Eres increíble!'; }
+  else if (pct >= 75) { emoji = '🎉'; title = '¡Muy bien, Sebastian!'; msg = 'Estás casi listo para el examen.'; }
+  else if (pct >= 60) { emoji = '💪'; title = '¡Buen esfuerzo!'; msg = 'Repasa un poco más y lo lograrás.'; }
+
+  document.getElementById('resultsEmoji').textContent = emoji;
+  document.getElementById('resultsTitle').textContent = title;
+  document.getElementById('resultsMsg').textContent = msg;
+  document.getElementById('bigScore').textContent = `${total} / ${max}`;
+
+  const partLabels = [
+    ['t1','t2','t3','Present Simple/Progressive'],
+    ['t4','t5','t6','Past Tenses'],
+    ['t7','t8','t9','Nouns'],
+    ['t10','t11','t12','Pronouns & Preps'],
+    ['t13','t14',null,'Articles'],
+  ];
+  const container = document.getElementById('partScores');
+  container.innerHTML = '';
+  partLabels.forEach(([a,b,c,label]) => {
+    const s = scores[a] + scores[b] + (c ? scores[c] : 0);
+    const m = totalQ(a) + totalQ(b) + (c ? totalQ(c) : 0);
+    const item = document.createElement('div');
+    item.className = 'part-score-item';
+    item.innerHTML = `<div class="label">${label}</div><div class="val">${s} / ${m}</div>`;
+    container.appendChild(item);
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function restartAll() {
+  Object.keys(tasks).forEach(tid => {
+    scores[tid] = 0;
+    answered[tid] = {};
+  });
+  totalPoints = 0;
+  updateGlobalScore();
+  renderAll();
+  goTo(0);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+renderAll();
+</script>
+</body>
+</html>
